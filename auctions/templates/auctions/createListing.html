@@ -1,0 +1,50 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2 class="col-md-6">Create Listing</h2>
+    <form action="{% url 'createlisting' %}" method="post">
+        {% csrf_token %}
+        <!-- Title -->
+        <div class="form-group input-group col-md-5">
+            <span class="input-group-text">Title</span>
+            <input class="form-control" autofocus type="text" name="title">
+        </div>
+    <!-- description (text) -->
+        <div class="form-group input-group-lg col-md-6">
+            <span >Description</span>
+            <textarea class="form-control" name="description" aria-label="With textarea"></textarea>
+        </div>
+    <!-- Puja inicial (numero) -->
+        <div class="input-group form-group col-md-3">
+            <span class="input-group-text">$</span>
+            <input type="text" class="form-control" name="inicialbid" aria-label="Amount (to the nearest dollar)" placeholder="Starting bid">
+            <span class="input-group-text">.00</span>
+        </div>
+    <!-- Imagen (link o subir) -->
+        <div class="form-group input-group col-md-5">
+            <span class="input-group-text">Images</span>
+            <input class="form-control" autofocus type="text" name="image_url" placeholder="https://">
+        </div>
+    <!-- Categoria Selecion -->
+        <div class="input-group form-group col-md-6">
+            <span class="input-group-text">Categories</span>
+            <select class="form-select" name="categories" multiple size="5" aria-label="Size 3 select example">
+                {% for category in categories %}
+                <option value="{{ category.id }}">{{category}}</option> 
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="input-group form-group col-md-3">
+            <span class="input-group-text">Auction deadline</span>
+            <input type="date" class="form-control" id="fecha" name="deadline">
+        </div>
+
+        <div class="input-group form-group col-md-6">
+            <input class="btn btn-primary form-group" type="submit" value="Save">
+        </div>
+
+    </form>
+
+
+{% endblock %}

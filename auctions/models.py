@@ -39,4 +39,12 @@ class Comments(models.Model):
     comment = models.TextField(max_length=200)
     timestamp = models.DateTimeField(auto_now_add=True)
     
+class watchlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="userWatchlist")
+    product = models.ForeignKey(Auction_listings, on_delete=models.CASCADE, blank=True, related_name="personproductList")
     
+    def __str__(self):
+        return f"{self.user.username} sigue {self.product.nameProduct}"
+    
+    class Meta:
+        unique_together = ['user', 'product']

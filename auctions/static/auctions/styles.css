@@ -1,3 +1,38 @@
 body {
     padding: 10px;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* Tres columnas de igual tamaño */
+    gap: 20px;
+    /* Espacio entre las celdas de la cuadrícula */
+}
+
+.buto {
+    margin-left: 20px;
+}
+
+.img_product {
+    margin-block: 20px;
+    margin-right: 30px;
+}
+
+.card p {
+    color: #000000;
+}
+
+a:link,
+a:visited,
+a:hover {
+    text-decoration: none;
+}
+
+.card .btn {
+    margin-top: 10px;
+}
+
+p span {
+    font-weight: 600;
+}

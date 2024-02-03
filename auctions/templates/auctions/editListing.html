@@ -1,0 +1,80 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2 class="col-md-6">Create Listing</h2>
+<form action="{% url 'editlisting' product_name=product.nameProduct %}?product_id={{ product.id }}" method="post">
+    {% csrf_token %}
+    <!-- Title -->
+    <div class="form-group input-group col-md-5">
+        <span class="input-group-text">Title</span>
+        <input class="form-control" autofocus type="text" name="title" value="{{product.nameProduct}}">
+    </div>
+    <!-- description (text) -->
+    <div class="form-group input-group-lg col-md-6">
+        <span>Description</span>
+        <textarea class="form-control" name="description"
+            aria-label="With textarea">{{ product.descriptionProduct }}</textarea>
+    </div>
+    <!-- Puja inicial (numero) -->
+    <div class="input-group form-group col-md-3">
+        <span class="input-group-text">$</span>
+        <input type="text" class="form-control" name="inicialbid" disabled value="{{product.inicialPrice}}"
+            aria-label="Amount (to the nearest dollar)" placeholder="Starting bid">
+        <span class="input-group-text">.00</span>
+    </div>
+    <!-- Imagen (link o subir) -->
+    <div class="form-group input-group col-md-5">
+        <span class="input-group-text">Images</span>
+        <input class="form-control" autofocus type="text" value="{{product.img_product}}" name="image_url"
+            placeholder="https://">
+    </div>
+    <!-- Categoria Selecion -->
+    <div class="input-group form-group col-md-6">
+        <span class="input-group-text">Categories</span>
+        <select class="form-select" name="categories" multiple size="5" aria-label="Size 3 select example">
+            {% for category in categories %}
+            {% if category in product.categories.all %}
+            <option value="{{ category.id }}" selected>{{ category }}</option>
+            {% else %}
+            <option value="{{ category.id }}">{{ category }}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="input-group form-group col-md-3">
+        <span class="input-group-text">Auction deadline</span>
+        <input type="date" class="form-control" id="fecha" name="deadline" value="{{ product.end_time|date:'Y-m-d' }}">
+    </div>
+
+    <div class="input-group form-group col-md-6">
+        <input class="btn btn-primary form-group" type="submit" value="Save Edit">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger form-group buto" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Delete
+        </button>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirm Delete</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this auction?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger" name="action" value="opcion1">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Listing: {{product.nameProduct}}</h2>
+<form action="{% url 'product' product_name=product.nameProduct %}?product_id={{ product.id }}" method="post">
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+    {% if IsProduct %}
+    <button type="submit" class="btn btn-danger" name="action" value="opcion1" style="font-size: 12px;">Delete
+        to
+        Watchlist</button>
+    {% else %}
+    <button type="submit" class="btn btn-secondary" name="action" value="opcion2" style="font-size: 12px;">Add
+        Watchlist</button>
+    {% endif %}
+    {% else %}
+    <button type="submit" class="btn btn-secondary" name="action" value="opcion3" style="font-size: 12px;">Add
+        Watchlist</button>
+    {% endif %}
+</form>
+
+<div class="d-flex flex-row ">
+    <div class="p-2">
+        <div class="ima">
+            <img class="img_product" src="{{product.img_product}}" alt="img_product">
+        </div>
+    </div>
+    <div class="p-2 w-50 img_product">
+        <p>{{product.descriptionProduct}}</p>
+        <h2>US$ {{product.currentPrice}}</h2>
+
+        <form action="{% url 'product' product_name=product.nameProduct %}?product_id={{ product.id }}" method="post">
+            {% csrf_token %}
+            <div class="input-group form-group w-50 ">
+                <span class="input-group-text">$</span>
+                <input type="text" class="form-control" name="currentbid" aria-label="Amount (to the nearest dollar)"
+                    placeholder="Starting bid">
+                <span class="input-group-text">.00</span>
+            </div>
+            <div class="input-group form-group ">
+                <input class="btn btn-primary form-group" type="submit" value="Place Bid">
+            </div>
+        </form>
+
+        <h3>Details</h3>
+        <ul>
+            <li>Listed By: {{product.ownerName.username}}</li>
+            <li>category: </li>
+        </ul>
+    </div>
+</div>
+
+
+{% endblock %}

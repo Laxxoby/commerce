@@ -229,7 +229,6 @@ def product(request, product_name):
             productF.For_sale = False
             productF.save()
 
-            # view report
             redirect_url = (
                     reverse("report", args=[product_name]) + f"?product_id={product_id}"
                 )

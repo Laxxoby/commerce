@@ -1,0 +1,72 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<a href="{% url 'product' product_name=Product.nameProduct %}?product_id={{ Product.id }}">
+    <div class="d-flex justify-content-start align-items-center border">
+        <div class="p-2 imagewl">
+            <img src="{{Product.img_product}}" alt="productImages">
+        </div>
+        <div class="p-2">
+            <h3>{{Product.nameProduct}}</h3>
+            <p class="wl">Initial Price: <span>${{Product.inicialPrice}}</span></p>
+            <p class="wl">Current Price: <span>${{Product.currentPrice}}</span></p>
+            <p class="wl1">Created {{ Product.start_time|date:"F j, Y" }} at {{ Product.start_time|time:"g:i A" }}</p>
+        </div>
+    </div>
+</a>
+
+<form style="margin: 0px;" action="{% url 'report' product_name=Product.nameProduct %}?product_id={{ Product.id }}" method="post">
+    {% csrf_token %}
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" style="margin-block: 20px;" data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop">
+        Delete Product and registration
+    </button>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirm Delete</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this auction?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger" name="action" value="opcion1">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Timestamp</th>
+            <th scope="col">Bidder</th>
+            <th scope="col">Bid</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in BidsList %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{item.timestamp|date:"F j, Y" }} at {{item.timestamp|time:"g:i A" }}</td>
+            <td>{{item.bidder}}</td>
+            <td>{{item.bid}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}

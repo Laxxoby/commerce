@@ -1,0 +1,41 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Active listings by category: {{categoria}}</h2>
+
+
+<div class="grid-container row">
+
+    {% if not products %}
+    <div class="alert alert-warning" style="margin-left: 10px;" role="alert">
+        There are no articles in this category yet.
+    </div>
+    {% endif %}
+
+    {% for product in products %}
+    <div class="col-sm">
+        <a href="{% url 'product' product_name=product.nameProduct %}?product_id={{ product.id }}">
+            <div class="card" style="width: 20rem;">
+                <img src="{{product.img_product}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{product.nameProduct}}</h5>
+                    <p><span>US$ {{product.currentPrice}}</span></p>
+                    <p class="card-text">{{product.descriptionProduct}}</p>
+                    {% if user.id == product.ownerName.id %}
+                    <a href="{% url 'product' product_name=product.nameProduct %}?product_id={{ product.id }}"
+                        class="btn btn-primary">Watch my auction</a>
+                    <a href="{% url 'editlisting' product_name=product.nameProduct %}?product_id={{ product.id }}"
+                        class="btn btn-primary">Edit</a>
+                    {% else %}
+                    <a href="{% url 'product' product_name=product.nameProduct %}?product_id={{ product.id }}"
+                        class="btn btn-primary">Bid</a>
+                    {% endif %}
+                </div>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

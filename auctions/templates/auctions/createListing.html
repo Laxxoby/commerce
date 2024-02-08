@@ -7,17 +7,18 @@
         <!-- Title -->
         <div class="form-group input-group col-md-5">
             <span class="input-group-text">Title</span>
-            <input class="form-control" autofocus type="text" name="title">
+            <input class="form-control" autofocus type="text" name="title" required>
         </div>
     <!-- description (text) -->
         <div class="form-group input-group-lg col-md-6">
             <span >Description</span>
-            <textarea class="form-control" name="description" aria-label="With textarea"></textarea>
+            <textarea class="form-control" name="description" aria-label="With textarea" required></textarea>
         </div>
     <!-- Puja inicial (numero) -->
         <div class="input-group form-group col-md-3">
             <span class="input-group-text">$</span>
-            <input type="text" class="form-control" name="inicialbid" aria-label="Amount (to the nearest dollar)" placeholder="Starting bid">
+            <input type="number" class="form-control" name="inicialbid" aria-label="Amount (to the nearest dollar)"
+            placeholder="Starting bid" required step="0.01">
             <span class="input-group-text">.00</span>
         </div>
     <!-- Imagen (link o subir) -->

@@ -1,0 +1,21 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+{% for product in products %}
+<a href="{% url 'product' product_name=product.product.nameProduct %}?product_id={{ product.product.id }}">
+<div class="d-flex justify-content-start align-items-center border">
+    <div class="p-2 imagewl">
+        <img src="{{product.product.img_product}}" alt="productImages">
+    </div>
+    <div class="p-2">
+        <h3>{{product.product.nameProduct}}</h3>
+        <p class="wl">Initial Price: <span>${{product.product.inicialPrice}}</span></p>
+        <p class="wl">Current Price: <span>${{product.product.currentPrice}}</span></p>
+        <p class="wl1">Created {{ product.product.start_time|date:"F j, Y" }} at {{ product.product.start_time|time:"g:i A" }}</p>
+    </div>
+</div>
+</a>
+{% endfor %}
+
+{% endblock %}
